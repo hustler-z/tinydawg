@@ -1,0 +1,36 @@
+____            _
+\_  \()/\/\/\/\/ \/\    /\/\
+ / // /\   \  // /_ \/\/_/ /
+ \/ \/  \/\/_/__/_/\_/\/ \/ @2024
+
+-----------------------------------------------------------------
+
+
+(*) Quick Notes on std::future::Future
+    Future represents an asynchronous computation obtained by use
+    of 'async', i.e. a future is a value that might not have
+    finished computing yet. This kind of 'asynchronous value'
+    makes it possible for a thread to continue doing useful work
+    while it waits for the value to become available.
+
+    ----+---------------> Future     (poll) --------------->
+         \
+          +------------------------------>
+
+(*) Ownership Rules
+    [1] Each value in Rust has an owner.
+    [2] There can only be one owner at a time.
+    [3] When the owner goes out of scope, the value will be dropped.
+
+(*) Lifetime in Rust
+
+
+(*) Smart Pointers in Rust
+
+
+(*) Send and Sync Traits in Rust
+    A type is 'Send' if it is safe to send it to another thread.
+    A type is 'Sync' if it is safe to share between threads.
+    (T is 'Sync' if and only if &T is Send)
+
+-----------------------------------------------------------------
