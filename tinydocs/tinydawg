@@ -22,8 +22,38 @@ ____            _
     [2] There can only be one owner at a time.
     [3] When the owner goes out of scope, the value will be dropped.
 
+(*) Reference in Rust
+    [1] At any given time, can have either one mutable reference
+        or any number of immutable references.
+    [2] References must always be valid.
+
 (*) Lifetime in Rust
 
+Lifetime Elision
+
+    [1] When there is a single input lifetime, it is elided to the
+        output lifetime.
+        i.e., “one in, one out” elision rule
+
+        fn f(x: &T) -> (&T, &T) =>
+        fn f<'a>(x: &'a T) -> (&'a T, &'a T)
+
+
+    [2] When there are no references in the outputs from a function;
+        in this case, each of the input references automatically
+        gets its own lifetime, different from any of the other
+        input parameters.
+
+        fn f(x: &T, y: &T, z: &U) -> u32 =>
+        fn<'a, 'b, 'c>(x: &'a T, y: &'b T, z: &'c T) -> u32
+
+    [3] methods that use a reference to self (either &self or &mut
+        self); in this case, the compiler assumes that any output
+        references take the lifetime of self, as this turns out to
+        be (by far) the most common situation.
+
+        fn f(&self, x: T, y: &T) -> &U =>
+        fn f<'a, 'b, 'c>(&'a self, x: &'b T, y: &'c T) -> &'a U
 
 (*) Smart Pointers in Rust
 
